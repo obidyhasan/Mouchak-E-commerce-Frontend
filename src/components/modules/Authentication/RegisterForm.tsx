@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import loginImage from "./../../../assets/images/honey-2.webp";
 import {
@@ -21,6 +20,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/password";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
+import logo from "./../../../assets/icons/logo-icon.svg";
+import GoogleAuthentication from "./GoogleAuthentication";
 
 const registerSchema = z
   .object({
@@ -90,9 +91,12 @@ export function RegisterForm({
             />
           </div>
           <div className="p-6 md:p-8">
+            <Link replace to={"/"}>
+              <img src={logo} className="mx-auto mb-3" />
+            </Link>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Register your account</h1>
+                <h1 className="text-xl font-bold">Register your account</h1>
                 <p className="text-muted-foreground text-balance">
                   Enter your details to create an account
                 </p>
@@ -184,19 +188,14 @@ export function RegisterForm({
                   Or continue with
                 </span>
               </div>
-              <div>
-                <Button variant="outline" className="w-full">
-                  <FaGoogle
-                    className="me-1 dark:text-white/60"
-                    size={16}
-                    aria-hidden="true"
-                  />
-                  Login with Google
-                </Button>
-              </div>
+              <GoogleAuthentication />
               <div className="text-center text-sm">
                 Already have an account?{" "}
-                <Link to="/login" className="underline underline-offset-4">
+                <Link
+                  to="/login"
+                  replace
+                  className="underline underline-offset-4"
+                >
                   Login
                 </Link>
               </div>

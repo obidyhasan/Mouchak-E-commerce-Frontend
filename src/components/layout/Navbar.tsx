@@ -16,6 +16,7 @@ import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
 import { ModeToggle } from "./ModeToggler";
 import { Badge } from "../ui/badge";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 // Navigation links array
 const navigationLinks = [
@@ -25,8 +26,10 @@ const navigationLinks = [
 ];
 
 export default function Component() {
+  const { data } = useUserInfoQuery(undefined);
+
   return (
-    <header className="border-b px-4 md:px-6">
+    <header className="border-b">
       <div className="flex h-16 items-center justify-between gap-4 max-w-7xl mx-auto px-4 ">
         {/* Left side */}
         <div className="flex flex-1 items-center gap-2">
@@ -134,27 +137,30 @@ export default function Component() {
         {/* Right side: Actions */}
         <div className="flex flex-1 items-center justify-end gap-4">
           {/* Cart */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="relative"
-            aria-label="Notifications"
-          >
-            <Handbag size={16} aria-hidden="true" />
+          {data?.data?.email && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="relative"
+              aria-label="Notifications"
+            >
+              <Handbag size={16} aria-hidden="true" />
 
-            <Badge className="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1 rounded-full">
-              2
-            </Badge>
-          </Button>
+              <Badge className="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1 rounded-full">
+                2
+              </Badge>
+            </Button>
+          )}
 
-          <div className="hidden">
-            <UserMenu />
-          </div>
-          {/* Upgrade button */}
-          <Button asChild className="text-sm">
-            <Link to="/login">Login</Link>
-          </Button>
           <ModeToggle />
+
+          {data?.data?.email ? (
+            <UserMenu />
+          ) : (
+            <Button asChild className="text-sm">
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>
