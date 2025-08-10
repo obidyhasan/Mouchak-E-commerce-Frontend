@@ -73,16 +73,21 @@ export default function Component() {
                     return (
                       <NavigationMenuItem key={index} className="w-full">
                         <NavigationMenuLink
-                          href={link.href}
+                          asChild
                           className="flex-row items-center gap-2 py-1.5"
                           active={link.active}
                         >
-                          <Icon
-                            size={16}
-                            className="text-muted-foreground/80"
-                            aria-hidden="true"
-                          />
-                          <Link to={link.href}>{link.label}</Link>
+                          <Link
+                            to={link.href}
+                            className="flex items-center gap-2"
+                          >
+                            <Icon
+                              size={16}
+                              className="text-muted-foreground/80"
+                              aria-hidden="true"
+                            />
+                            {link.label}
+                          </Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     );
@@ -99,16 +104,18 @@ export default function Component() {
                 return (
                   <NavigationMenuItem key={index}>
                     <NavigationMenuLink
+                      asChild
+                      className="flex-row items-center gap-2 py-1.5"
                       active={link.active}
-                      href={link.href}
-                      className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
                     >
-                      <Icon
-                        size={16}
-                        className="text-muted-foreground/80"
-                        aria-hidden="true"
-                      />
-                      <Link to={link.href}>{link.label}</Link>
+                      <Link to={link.href} className="flex items-center gap-2">
+                        <Icon
+                          size={16}
+                          className="text-muted-foreground/80"
+                          aria-hidden="true"
+                        />
+                        {link.label}
+                      </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 );
