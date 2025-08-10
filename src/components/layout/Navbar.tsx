@@ -1,4 +1,4 @@
-import { HouseIcon, InboxIcon, ZapIcon } from "lucide-react";
+import { Handbag, HouseIcon, InboxIcon, ZapIcon } from "lucide-react";
 import UserMenu from "@/components/ui/user-menu";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/popover";
 import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
+import { ModeToggle } from "./ModeToggler";
+import { Badge } from "../ui/badge";
 
 // Navigation links array
 const navigationLinks = [
@@ -117,19 +119,35 @@ export default function Component() {
 
         {/* Middle side: Logo */}
         <div className="flex items-center">
-          <a href="#" className="text-primary hover:text-primary/90">
+          <Link to="/" className="text-primary hover:text-primary/90">
             <Logo />
-          </a>
+          </Link>
         </div>
 
         {/* Right side: Actions */}
         <div className="flex flex-1 items-center justify-end gap-4">
-          {/* User menu */}
-          <UserMenu />
+          {/* Cart */}
+          <Button
+            variant="outline"
+            size="icon"
+            className="relative"
+            aria-label="Notifications"
+          >
+            <Handbag size={16} aria-hidden="true" />
+
+            <Badge className="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1 rounded-full">
+              25
+            </Badge>
+          </Button>
+
+          <div className="hidden">
+            <UserMenu />
+          </div>
           {/* Upgrade button */}
           <Button asChild className="text-sm">
             <Link to="/login">Login</Link>
           </Button>
+          <ModeToggle />
         </div>
       </div>
     </header>
