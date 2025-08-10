@@ -15,7 +15,7 @@ export default function Password({ ...field }) {
         <Input
           id={id}
           className="pe-9"
-          placeholder="Password"
+          placeholder="********"
           type={isVisible ? "text" : "password"}
           {...field}
         />

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import loginImage from "./../../../assets/images/honey-2.webp";
 import {
   Form,
@@ -18,6 +19,8 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/password";
+import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
 
 const registerSchema = z
   .object({
@@ -37,6 +40,9 @@ export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [register] = useRegisterMutation();
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -54,7 +60,22 @@ export function RegisterForm({
       password: data.password,
     };
 
-    console.log(userInfo);
+    try {
+      const result = await register(userInfo).unwrap();
+      console.log(result);
+      toast.success("You registered successfully");
+      navigate("/verify", { state: data.email, replace: true });
+    } catch (error: any) {
+      console.log(error);
+      if (
+        error.status === 400 &&
+        error?.data?.message === "User already exists!"
+      ) {
+        toast.error("You are already registered. Please Login");
+      } else {
+        toast.error(error?.data?.message);
+      }
+    }
   };
 
   return (
