@@ -136,7 +136,7 @@ export default function Component() {
             <Handbag size={16} aria-hidden="true" />
 
             <Badge className="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1 rounded-full">
-              25
+              2
             </Badge>
           </Button>
 

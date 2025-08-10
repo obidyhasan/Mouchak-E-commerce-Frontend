@@ -1,7 +1,11 @@
+import { LoginForm } from "@/components/modules/Authentication/LoginForm";
+
 const Login = () => {
   return (
-    <div>
-      <h1>This is Login component</h1>
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-3xl">
+        <LoginForm />
+      </div>
     </div>
   );
 };
